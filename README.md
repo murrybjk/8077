@@ -87,7 +87,7 @@ http://0.0.0.0:8077
 
 ## 👨‍💻 Author
 
-**Murat Yanbul**  
+**murrybjk**  
 [GitHub Profile](https://github.com/murrybjk)
 
 ---
