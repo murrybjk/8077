@@ -1,15 +1,97 @@
-# Flask IPTV Redirector
+# ⚡ Flask IPTV Redirector
 
-Redirects users to a dynamic IPTV stream URL based on server/channel/MAC input.
+A lightweight Flask-based service that dynamically generates and redirects to IPTV stream links using `server`, `channel`, and `MAC address` parameters.
 
-## Usage
+---
+
+## 🔗 Example Usage
+
+```url
 http://localhost:8077/<server>/<channel>/<mac>
+```
 
-## Example
+📺 Example:
+
+```url
 http://localhost:8077/hd-max.org:8080/201/00:1A:79:12:14:01
+```
 
-## Install Requirements
+This sends a request to the IPTV portal to generate a tokenized stream and redirects the user directly to the stream.
+
+---
+
+## 🚀 Quick Start
+
+### 1. Install dependencies
+
+```bash
 pip install flask requests
+```
 
-## Run the App
+### 2. Run the app
+
+```bash
 python app.py
+```
+
+By default, it runs on:
+
+```url
+http://0.0.0.0:8077
+```
+
+---
+
+## 📦 API Details
+
+### GET `/\<server>/\<channel>/\<mac>`
+
+- **server** – e.g. `hd-max.org:8080`
+- **channel** – channel ID from the IPTV provider
+- **mac** – MAC address in STB format (e.g. `00:1A:79:12:14:01`)
+
+🔁 The route:
+- Builds a URL to generate a streaming link using IPTV middleware
+- Parses JSON to extract the final stream URL
+- Redirects the user to the playable stream (`.ts` or `.m3u8`)
+
+---
+
+## ✅ JSON Response Format Expected
+
+```json
+{
+  "js": {
+    "cmd": "ffmpeg http://example.com/stream/abc123.ts"
+  }
+}
+```
+
+---
+
+## 🛡️ Notes
+
+- No caching — each request fetches a new token
+- Uses `ffmpeg` syntax internally to extract the stream link
+- Make sure the IPTV server allows `User-Agent` spoofing (Googlebot)
+
+---
+
+## 🔧 Deployment Tips
+
+- Use **Nginx** or **Apache** as a reverse proxy
+- Set up a **systemd** service for auto-start on boot
+- Optional: add rate limiting or password protection if exposed publicly
+
+---
+
+## 👨‍💻 Author
+
+**Murat Yanbul**  
+[GitHub Profile](https://github.com/murrybjk)
+
+---
+
+## 📄 License
+
+[MIT](https://choosealicense.com/licenses/mit/)
